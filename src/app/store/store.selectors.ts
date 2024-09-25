@@ -16,14 +16,14 @@ export const selectTrendingVideos = createSelector(
 export const selectTVSeries = createSelector(
   selectVideoState,
   (state: VideoState) =>
-    state.videoData.filter((video: Video) => video.category === 'tvseries')
+    state.videoData.filter((video: Video) => video.category === 'TV Series')
 );
 
 // 3. Selector for Movies (category = 'movies')
 export const selectMovies = createSelector(
   selectVideoState,
   (state: VideoState) =>
-    state.videoData.filter((video: Video) => video.category === 'movies')
+    state.videoData.filter((video: Video) => video.category === 'Movie')
 );
 
 // 4. Selector for Bookmarked videos (isBookmarked = true)
@@ -33,14 +33,14 @@ export const selectBookmarkedVideos = createSelector(
     state.videoData.filter((video: Video) => video.isBookmarked)
 );
 
-// 5. Selector for Bookmarked videos (isBookmarked = true)
+// 5. Selector for all recommended videos (exluding trending videos)
 export const selectRecommended = createSelector(
   selectVideoState,
   (state: VideoState) =>
     state.videoData.filter((video: Video) => !video.isTrending)
 );
 
-// 6. Selector for videos by category
+// 6. Selector for videos by search
 export const selectVideosBySearch = createSelector(
   selectVideoState,
   (state: VideoState) => {

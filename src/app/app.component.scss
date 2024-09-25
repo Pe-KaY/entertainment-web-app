@@ -3,7 +3,7 @@
   height: 100vh;
   display: flex;
   gap: 3rem;
-  padding: 2rem 3rem;
+  padding: 2rem ;
 
   // subhead font
   .subhead {
@@ -53,7 +53,11 @@
     height: 100%;
     overflow: auto;
     padding: 1rem 0;
-    
+    scrollbar-width: none;
+    /* For Internet Explorer, Edge */
+    &::-ms-scrollbar {
+      display: none;
+    }
 
     .search {
       // border: 1px solid red;
@@ -113,9 +117,10 @@
         gap: 1rem;
 
         .recommended {
-          border: 1px solid pink;
+          // border: 1px solid pink;
           display: grid;
-          grid-template-columns: repeat(auto-fit,minmax(40rem,1fr));
+          grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+          gap: 2rem 2rem;
         }
       }
     }

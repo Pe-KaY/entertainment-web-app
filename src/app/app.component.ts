@@ -18,6 +18,8 @@ import {
   selectTVSeries,
   selectRecommended,
 } from './store/store.selectors';
+// import data store
+import { DataService } from './services/dataServices/data.service';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +34,7 @@ import {
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(private apiService: ApiService, private store: Store<Video[]>) {}
+  constructor(public dataService: DataService, private store: Store<Video[]>) {}
 
   // obserables
   trendingVideos$!: Observable<Video[]>;
