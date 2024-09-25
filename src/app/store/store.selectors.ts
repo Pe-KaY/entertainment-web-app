@@ -33,7 +33,14 @@ export const selectBookmarkedVideos = createSelector(
     state.videoData.filter((video: Video) => video.isBookmarked)
 );
 
-// 5. Selector for videos by category
+// 5. Selector for Bookmarked videos (isBookmarked = true)
+export const selectRecommended = createSelector(
+  selectVideoState,
+  (state: VideoState) =>
+    state.videoData.filter((video: Video) => !video.isTrending)
+);
+
+// 6. Selector for videos by category
 export const selectVideosBySearch = createSelector(
   selectVideoState,
   (state: VideoState) => {

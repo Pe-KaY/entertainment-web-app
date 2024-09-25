@@ -1,0 +1,102 @@
+.container {
+  //   border: 1px solid red;
+  width: 29rem;
+  height: 16rem;
+  border-radius: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  &:hover {
+    figure {
+      img {
+        transform: scale(1.1);
+      }
+
+      figcaption {
+        background-color: rgba(0, 0, 0, 0.493);
+
+        .play {
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  figure {
+    width: 100%;
+    height: 100%;
+
+    img {
+      transition: transform 0.3s ease-in-out;
+    }
+    figcaption {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem;
+
+      .bookmark {
+        background-color: rgba(0, 0, 0, 0.31);
+        width: 2rem;
+        height: 2rem;
+        margin-inline-start: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100vw;
+        transition: background-color 0.3s ease-in-out;
+
+        svg {
+          stroke: white;
+        }
+
+        &:hover {
+          background-color: white;
+          svg {
+            stroke: black;
+          }
+        }
+      }
+
+      .play {
+        background-color: rgba(255, 255, 255, 0.253);
+        position: absolute;
+        width: 6.5rem;
+        height: 2.5rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 100vw;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        font-weight: bold;
+        visibility: hidden;
+      }
+
+      .info {
+        // border: 1px solid red;
+        min-height: 2rem;
+
+        .category-year {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          span {
+            width: 0.2rem;
+            height: 0.2rem;
+            border-radius: 100vw;
+            display: block;
+            background-color: white;
+          }
+        }
+        .title {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+}

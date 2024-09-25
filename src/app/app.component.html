@@ -45,10 +45,36 @@
   </div>
   <div class="contentwrapp">
     <div class="search">
-        <!-- search icon -->
-        <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg"><path d="M27.613 25.72 23.08 21.2a10.56 10.56 0 0 0 2.253-6.533C25.333 8.776 20.558 4 14.667 4S4 8.776 4 14.667c0 5.89 4.776 10.666 10.667 10.666A10.56 10.56 0 0 0 21.2 23.08l4.52 4.533a1.333 1.333 0 0 0 1.893 0 1.333 1.333 0 0 0 0-1.893ZM6.667 14.667a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z" fill="#FFF"/></svg>
-        <!-- search input -->
+      <!-- search icon -->
+      <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M27.613 25.72 23.08 21.2a10.56 10.56 0 0 0 2.253-6.533C25.333 8.776 20.558 4 14.667 4S4 8.776 4 14.667c0 5.89 4.776 10.666 10.667 10.666A10.56 10.56 0 0 0 21.2 23.08l4.52 4.533a1.333 1.333 0 0 0 1.893 0 1.333 1.333 0 0 0 0-1.893ZM6.667 14.667a8 8 0 1 1 16 0 8 8 0 0 1-16 0Z"
+          fill="#FFF"
+        />
+      </svg>
+      <!-- search input -->
+      <input type="text" placeholder="" />
     </div>
-    <div class="content"></div>
+    <div class="content">
+      <!-- trending -->
+      <ng-container>
+        <div class="trendingwrap">
+          <p class="subhead">Trending</p>
+          <div class="trending" *ngIf="trendingVideos$ | async as trend">
+            <app-trending-card
+              *ngFor="let video of trend"
+              [video]="video"
+            ></app-trending-card>
+          </div>
+        </div>
+        <!-- recommended -->
+        <div class="recommendedwrap">
+          <p class="subhead">Recommended</p>
+          <div class="recommended" *ngIf="recommendedVideos$ | async as recommended">
+            <app-movie-card *ngFor="let video of recommended" [video]="video"></app-movie-card>
+          </div>
+        </div>
+      </ng-container>
+    </div>
   </div>
 </div>
