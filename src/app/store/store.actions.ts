@@ -10,7 +10,11 @@ export const toggleBookmark = createAction(
 // Action to set the category filter
 export const setCategory = createAction(
   '[Video] Set Category',
-  props<{ category: string }>()
+  props<{ category: string; actCategory: string }>()
+);
+// Action to set all videos isBookedmark to false
+export const toggleAllBookmarksToFalse = createAction(
+  '[Video] Toggle All Bookmarks to False'
 );
 
 // Action to load videos

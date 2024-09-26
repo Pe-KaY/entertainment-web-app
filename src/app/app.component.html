@@ -1,4 +1,9 @@
 <div class="maincontainer">
+  <!-- login to bookmark warning -->
+  <div class="warning" [class.showwarning]="dataService.showWarning">
+    <p>Please login to bookmark</p>
+  </div>
+
   <div class="sidebar">
     <div class="logo">
       <svg width="33" height="27" xmlns="http://www.w3.org/2000/svg">
@@ -11,8 +16,8 @@
     <div class="nav">
       <!-- home  -->
       <svg
-        [class.active]="dataService.allCategory"
-        (click)="dataService.setCategory('All')"
+        [class.active]="dataService.all"
+        (click)="dataService.setActiveCategory('All')"
         width="20"
         height="20"
         xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +29,8 @@
 
       <!-- movies -->
       <svg
-        [class.active]="dataService.moviesCategory"
-        (click)="dataService.setCategory('Movies')"
+        [class.active]="dataService.movies"
+        (click)="dataService.setActiveCategory('Movies')"
         width="20"
         height="20"
         xmlns="http://www.w3.org/2000/svg"
@@ -37,8 +42,8 @@
 
       <!-- tv series -->
       <svg
-        [class.active]="dataService.tvSeriesCategory"
-        (click)="dataService.setCategory('TV Series')"
+        [class.active]="dataService.tvSeries"
+        (click)="dataService.setActiveCategory('TV Series')"
         width="20"
         height="20"
         xmlns="http://www.w3.org/2000/svg"
@@ -50,8 +55,9 @@
 
       <!-- bookmark -->
       <svg
-        [class.active]="dataService.bookedCategory"
-        (click)="dataService.setCategory('Bookmarked')"
+        *ngIf="dataService.userlogin"
+        [class.active]="dataService.bookmarked"
+        (click)="dataService.setActiveCategory('Bookmarked')"
         width="17"
         height="20"
         xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +67,16 @@
         />
       </svg>
     </div>
-    <div class="profile"></div>
+    <div (click)="profileClick()" class="profile">
+      <!-- guest  -->
+      <ng-container *ngIf="!dataService.userlogin">
+        <img src="../assets/guest-Avatar.png" alt="guest" />
+      </ng-container>
+      <!-- user logged in -->
+      <ng-container *ngIf="dataService.userlogin">
+        <img src="../assets/image-avatar.png" alt="guest" />
+      </ng-container>
+    </div>
   </div>
   <div class="contentwrapp">
     <div class="search">
@@ -73,7 +88,19 @@
         />
       </svg>
       <!-- search input -->
-      <input type="text" placeholder="" />
+      <input
+        type="text"
+        [placeholder]="
+          dataService.allCategory
+            ? 'Search for movies or TV Series'
+            : dataService.moviesCategory
+            ? 'Search for Movies'
+            : dataService.tvSeriesCategory
+            ? 'Search for TV Series'
+            : 'Search for BookMarked Videos'
+        "
+        #search
+      />
     </div>
     <div class="content">
       <!--  Home All Videos-->
@@ -147,15 +174,28 @@
       <!-- search result -->
       <ng-container *ngIf="dataService.searching">
         <div class="recommendedwrap">
-          <p class="subhead">Recommended</p>
           <div class="recommended" *ngIf="searchVideos$ | async as search">
-            <app-movie-card
-              *ngFor="let video of search"
-              [video]="video"
-            ></app-movie-card>
+            <ng-container *ngIf="search.length > 0">
+              <p>
+                Found {{ search.length }} results for "{{
+                  selectCategory$ | async
+                }}"
+              </p>
+
+              <app-movie-card
+                *ngFor="let video of search"
+                [video]="video"
+              ></app-movie-card>
+            </ng-container>
+            <ng-container *ngIf="search.length === 0">
+              <p>No results found</p>
+            </ng-container>
           </div>
         </div>
       </ng-container>
     </div>
+  </div>
+  <div class="modal" *ngIf="dataService.modal">
+    <router-outlet></router-outlet>
   </div>
 </div>

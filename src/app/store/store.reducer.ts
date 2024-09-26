@@ -2,9 +2,11 @@ import { createReducer, on } from '@ngrx/store';
 import { VideoState } from '../../interface/interface';
 import * as storeActions from './store.actions';
 
+
 const initialState: VideoState = {
   videoData: [],
   category: '',
+  actCategory: 'All',
 };
 
 export const videoReducer = createReducer(
@@ -18,8 +20,8 @@ export const videoReducer = createReducer(
     });
     return { ...state, videoData: updatedVideos };
   }),
-  on(storeActions.setCategory, (state, { category }) => {
-    return { ...state, category };
+  on(storeActions.setCategory, (state, { category, actCategory }) => {
+    return { ...state, category , actCategory }; 
   }),
   on(storeActions.loadVideos, (state) => ({
     ...state,
@@ -32,5 +34,17 @@ export const videoReducer = createReducer(
   on(storeActions.loadVideosFailure, (state, { error }) => {
     console.error(error); // Handle error (you may want to add error state)
     return state; // Return the current state on error
-  })
+  }),
+    // Handle toggleAllBookmarksToFalse action
+    on(storeActions.toggleAllBookmarksToFalse, (state) => {
+      const updatedVideoData = state.videoData.map((video) => ({
+        ...video,
+        isBookmarked: video.isBookmarked ? false : video.isBookmarked, // Set to false only if true
+      }));
+  
+      return {
+        ...state,
+        videoData: updatedVideoData,
+      };
+    })
 );

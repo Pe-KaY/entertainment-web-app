@@ -27,4 +27,5 @@ export interface Trending {
 export interface VideoState {
   videoData: Video[];
   category: string;
+  actCategory: string;
 }
