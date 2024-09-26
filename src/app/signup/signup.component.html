@@ -1,1 +1,52 @@
-<p>signup works!</p>
+<div class="container">
+    <!-- svg   -->
+    <svg
+      (click)="dataService.modal = false"
+      width="33"
+      height="27"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="m26.463.408 3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-3.2l3.2 6.4h-4.8l-3.2-6.4h-1.6a3.186 3.186 0 0 0-3.184 3.2l-.016 19.2a3.2 3.2 0 0 0 3.2 3.2h25.6a3.2 3.2 0 0 0 3.2-3.2V.408h-6.4Z"
+        fill="#FC4747"
+      />
+    </svg>
+    <!-- invalid message -->
+    <div class="content">
+      <div class="loading" *ngIf="loading">
+        <img src="../../assets/Magnify.apng" alt="" />
+      </div>
+      <!-- form -->
+      <form [formGroup]="SignupForm">
+        <p class="title">Sign Up</p>
+        <div class="details">
+          <input
+            type="text"
+            formControlName="username"
+            placeholder="Email address"
+            id="username"
+          />
+  
+          <input
+            type="password"
+            formControlName="password"
+            placeholder="Password"
+            id="password"
+          />
+
+          <input
+            type="password"
+            formControlName="repeatpassword"
+            placeholder="Repeat password"
+            id="password"
+          />
+        </div>
+        <button type="submit" (click)="signup()">Create an account</button>
+        <p class="signup">
+          Already have an account? <a routerLink="/**">Login</a>
+        </p>
+        <p *ngIf="errorMessage" class="invalid">Passwords do not match</p>
+      </form>
+    </div>
+  </div>
+  

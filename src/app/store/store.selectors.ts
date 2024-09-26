@@ -44,8 +44,42 @@ export const selectRecommended = createSelector(
 export const selectVideosBySearch = createSelector(
   selectVideoState,
   (state: VideoState) => {
-    const { videoData, category } = state;
+    const { videoData, category, } = state;
     if (!category) return videoData; // If category is empty, return all videos
-    return videoData.filter((video) => video.category === category); // Filter by category
+    return videoData.filter((video) =>
+      video.title.toLocaleLowerCase().includes(category.toLocaleLowerCase())
+    ); // Filter by category
   }
+);
+
+// export const selectVideosBySearch = createSelector(
+//   selectVideoState,
+//   (state: VideoState) => {
+//     const { videoData, category, actCategory } = state;
+
+//     // If search string (category) is empty, return all videos
+//     if (!category) {
+//       return videoData.filter(video => !video.isTrending); // Exclude trending videos if no search string
+//     }
+
+//     // If actCategory is 'All', search across all categories
+//     if (actCategory === 'All') {
+//       return videoData.filter((video) =>
+//         video.title.toLowerCase().includes(category.toLowerCase())
+//       );
+//     }
+
+//     // Otherwise, filter by actCategory and search by the search string (category)
+//     return videoData.filter(
+//       (video) =>
+//         video.category.toLowerCase() === actCategory.toLowerCase() &&
+//         video.title.toLowerCase().includes(category.toLowerCase())
+//     );
+//   }
+// );
+
+// 7 selector for category
+export const selectCategory = createSelector(
+  selectVideoState,
+  (state: VideoState) => state.category
 );

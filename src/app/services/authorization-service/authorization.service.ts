@@ -1,9 +1,23 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthorizationService {
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  login(username: string, password: string) {
+    return this.http.post(
+      'https://entertainment-web-app-backend-2.onrender.com/api/login',
+      { username: username, password: password }
+    );
+  }
+
+  signup(username: string, password: string) {
+    return this.http.post(
+      'https://entertainment-web-app-backend-2.onrender.com/api/register',
+      { username: username, password: password }
+    );
+  }
 }

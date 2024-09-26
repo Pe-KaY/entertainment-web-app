@@ -3,7 +3,24 @@
   height: 100vh;
   display: flex;
   gap: 3rem;
-  padding: 2rem ;
+  padding: 2rem;
+
+  // login to bookmark warning
+  .warning {
+    // width: 10rem;
+    padding: 0.5rem;
+    background-color: #fc4747;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    position: fixed;
+    right: 0;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 0.3s ease-in-out;
+    &.showwarning {
+      transform: translate3d(0, 0, 0);
+    }
+  }
 
   // subhead font
   .subhead {
@@ -31,6 +48,7 @@
     }
 
     .nav {
+      // border: 1px solid red;
       min-height: 15rem;
       display: flex;
       flex-direction: column;
@@ -39,9 +57,14 @@
     }
 
     .profile {
-      min-height: 4rem;
-      min-width: 3rem;
+      width: 3.5rem;
+      height: 3.5rem;
       margin-block-start: auto;
+      margin-inline: auto;
+      overflow: hidden;
+      border-radius: 100vw;
+      cursor: pointer;
+      flex-shrink: 0;
     }
   }
 
@@ -119,11 +142,17 @@
         .recommended {
           // border: 1px solid pink;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(18rem,1fr));
           gap: 2rem 2rem;
         }
       }
     }
+  }
+  // modal for router outlet
+  .modal {
+    position: absolute;
+    inset: 0;
+    background-color: #10141e;
   }
 
   //   MEDIA QUERIES
