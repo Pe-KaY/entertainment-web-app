@@ -22,7 +22,7 @@ export class TrendingCardComponent {
     if(!this.dataService.userlogin){
       this.dataService.showLoginToBookmarkWarning();
       return
-    }
+    } 
     // Toggle isBookmarked based on the current state of this.video
     const isBookmarked = !this.video.isBookmarked;
     // Dispatch the action to toggle bookmark
