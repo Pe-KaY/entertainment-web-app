@@ -67,14 +67,21 @@
         />
       </svg>
     </div>
-    <div (click)="profileClick()" class="profile">
+    <div class="profile">
       <!-- guest  -->
       <ng-container *ngIf="!dataService.userlogin">
-        <img src="../assets/guest-Avatar.png" alt="guest" />
+        <img
+          (click)="profileClick('login')"
+          src="../assets/guest-Avatar.png"
+          alt="guest"
+        />
       </ng-container>
       <!-- user logged in -->
       <ng-container *ngIf="dataService.userlogin">
         <img src="../assets/image-avatar.png" alt="guest" />
+        <div class="logout" (click)="profileClick('logout')">
+          <p>Log out</p>
+        </div>
       </ng-container>
     </div>
   </div>
@@ -107,7 +114,11 @@
       <ng-container *ngIf="dataService.allCategory">
         <div class="trendingwrap">
           <p class="subhead">Trending</p>
-          <div class="trending" *ngIf="trendingVideos$ | async as trend">
+          <div
+            class="trending"
+            *ngIf="trendingVideos$ | async as trend"
+            #trending
+          >
             <app-trending-card
               *ngFor="let video of trend"
               [video]="video"
@@ -160,7 +171,7 @@
         <div class="recommendedwrap">
           <p class="subhead">BookMarked Videos</p>
           <div
-            class="recommended bookmarkedvideos" 
+            class="recommended bookmarkedvideos"
             *ngIf="bookmarkedVideos$ | async as bookedMark"
           >
             <app-movie-card
@@ -173,15 +184,15 @@
 
       <!-- search result -->
       <ng-container *ngIf="dataService.searching">
-        <div class="recommendedwrap">
-          <div class="recommended searchresult" *ngIf="searchVideos$ | async as search">
+        <div class="recommendedwrap" *ngIf="searchVideos$ | async as search">
+          <p>
+            Found {{ search.length }} result(s) for "<span
+              class="searchstring"
+              >{{ selectCategory$ | async }}</span
+            >"
+          </p>
+          <div class="recommended searchresult">
             <ng-container *ngIf="search.length > 0">
-              <p>
-                Found {{ search.length }} results for "{{
-                  selectCategory$ | async
-                }}"
-              </p>
-
               <app-movie-card
                 *ngFor="let video of search"
                 [video]="video"
@@ -195,6 +206,7 @@
       </ng-container>
     </div>
   </div>
+  <!-- modal for login or register -->
   <div class="modal" *ngIf="dataService.modal">
     <router-outlet></router-outlet>
   </div>

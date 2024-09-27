@@ -6,6 +6,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../services/dataServices/data.service';
 import { AuthorizationService } from '../services/authorization-service/authorization.service';
@@ -26,7 +27,8 @@ export class SignupComponent {
   constructor(
     private formBuilder: FormBuilder,
     public dataService: DataService,
-    private authorizationService: AuthorizationService
+    private authorizationService: AuthorizationService,
+    private router: Router  
   ) {
     this.SignupForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -54,12 +56,11 @@ export class SignupComponent {
           this.dataService.userlogin = true;
           setTimeout(() => {
             this.loading = false;
-            this.dataService.modal = false;
+            this.router.navigate(['/login']);
+            // this.dataService.modal = false;
           }, 5000);
         },
         error: (err) => {
-          console.log(err);
-          console.log(err.error.message);
           setTimeout(() => {
             this.loading = false;
             this.errorMessage = true;

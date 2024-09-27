@@ -36,7 +36,6 @@ export class LoginComponent {
 
   login() {
     this.loading = true;
-
     this.authorizationService
       .login(this.loginForm.value.username, this.loginForm.value.password)
       .subscribe({
@@ -51,7 +50,6 @@ export class LoginComponent {
           }, 5000);
         },
         error: (err) => {
-          console.log(err.error.message);
           setTimeout(() => {
             this.loading = false;
             this.errorMessage = true;

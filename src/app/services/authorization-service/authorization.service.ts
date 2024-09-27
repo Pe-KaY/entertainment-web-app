@@ -10,14 +10,14 @@ export class AuthorizationService {
   login(username: string, password: string) {
     return this.http.post(
       'https://entertainment-web-app-backend-2.onrender.com/api/login',
-      { username: username, password: password }
+      { email: username, password: password }
     );
   }
 
   signup(username: string, password: string) {
     return this.http.post(
       'https://entertainment-web-app-backend-2.onrender.com/api/register',
-      { username: username, password: password }
+      { email: username, password: password }
     );
   }
 }

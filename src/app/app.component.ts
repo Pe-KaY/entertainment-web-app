@@ -1,10 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { ApiService } from './services/api-service/api.service';
+import {  RouterOutlet } from '@angular/router';
 import { Video } from '../interface/interface';
 import { loadVideos, toggleAllBookmarksToFalse } from './store/store.actions';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 // import components
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { TrendingCardComponent } from './trending-card/trending-card.component';
@@ -13,7 +13,6 @@ import {
   distinctUntilChanged,
   fromEvent,
   map,
-  mergeMap,
   Observable,
 } from 'rxjs';
 // import selectors
@@ -43,7 +42,11 @@ import { setCategory } from './store/store.actions';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(public dataService: DataService, private store: Store<Video[]>) {}
+  constructor(
+    public dataService: DataService,
+    private store: Store<Video[]>,
+    private router: Router
+  ) {}
 
   // obserables
   trendingVideos$!: Observable<Video[]>;
@@ -55,10 +58,12 @@ export class AppComponent {
   selectCategory$!: Observable<string>;
 
   @ViewChild('search') search!: ElementRef;
+  @ViewChild('trending') trending!: ElementRef;
 
   ngOnInit() {
     // fetch data
     this.store.dispatch(loadVideos());
+    // reset bookmarkedVideos
     this.store.dispatch(toggleAllBookmarksToFalse());
 
     // assign observables
@@ -88,18 +93,37 @@ export class AppComponent {
         this.dataService.setCategory('Searching');
         this.dispatchSearch(value, this.dataService.activeCategory);
       });
+
+    // trending horizontal scroll
+    this.trending.nativeElement.addEventListener('wheel', (event: any) => {
+      event.preventDefault();
+      if (event.deltaY > 0) {
+        this.trending.nativeElement.scrollLeft += 250;
+      } else {
+        this.trending.nativeElement.scrollLeft -= 250;
+      }
+    });
   }
 
+  // function to handle search
   dispatchSearch(value: string, category: string) {
     this.store.dispatch(
       setCategory({ category: value, actCategory: category })
     );
   }
 
-  profileClick() {
-    if (this.dataService.userlogin) {
+  // function to handle profile click
+  profileClick(operation: string) {
+    // login operation
+    if (operation === 'login') {
+      this.dataService.modal = true;
+      this.router.navigate(['/login']);
       return;
     }
-    this.dataService.modal = true;
+    // logout operation
+    localStorage.removeItem('username');
+    this.dataService.userlogin = false;
+    // reset bookmarkedVideos
+    this.store.dispatch(toggleAllBookmarksToFalse());
   }
 }
