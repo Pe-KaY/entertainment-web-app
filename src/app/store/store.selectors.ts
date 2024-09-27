@@ -41,14 +41,38 @@ export const selectRecommended = createSelector(
 );
 
 // 6. Selector for videos by search
+// export const selectVideosBySearch = createSelector(
+//   selectVideoState,
+//   (state: VideoState) => {
+//     const { videoData, category, } = state;
+//     if (!category) return videoData; // If category is empty, return all videos
+//     return videoData.filter((video) =>
+//       video.title.toLocaleLowerCase().includes(category.toLocaleLowerCase())
+//     ); // Filter by category
+//   }
+// );
 export const selectVideosBySearch = createSelector(
   selectVideoState,
   (state: VideoState) => {
-    const { videoData, category, } = state;
+    const { videoData, category, actCategory } = state;
     if (!category) return videoData; // If category is empty, return all videos
-    return videoData.filter((video) =>
-      video.title.toLocaleLowerCase().includes(category.toLocaleLowerCase())
-    ); // Filter by category
+    return videoData.filter((video) => {
+      if (actCategory === 'All') {
+        return video.title
+          .toLocaleLowerCase()
+          .includes(category.toLocaleLowerCase());
+      } else if (actCategory === 'Bookmarked') {
+        return (
+          video.isBookmarked &&
+          video.title.toLocaleLowerCase().includes(category.toLocaleLowerCase())
+        );
+      } else {
+        return (
+          video.category.toLowerCase() === actCategory.toLowerCase() &&
+          video.title.toLocaleLowerCase().includes(category.toLocaleLowerCase())
+        );
+      }
+    });
   }
 );
 

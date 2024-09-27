@@ -30,7 +30,7 @@
       <!-- movies -->
       <svg
         [class.active]="dataService.movies"
-        (click)="dataService.setActiveCategory('Movies')"
+        (click)="dataService.setActiveCategory('Movie')"
         width="20"
         height="20"
         xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +174,7 @@
       <!-- search result -->
       <ng-container *ngIf="dataService.searching">
         <div class="recommendedwrap">
-          <div class="recommended" *ngIf="searchVideos$ | async as search">
+          <div class="recommended searchresult" *ngIf="searchVideos$ | async as search">
             <ng-container *ngIf="search.length > 0">
               <p>
                 Found {{ search.length }} results for "{{

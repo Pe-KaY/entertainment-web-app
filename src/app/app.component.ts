@@ -87,7 +87,7 @@ export class AppComponent {
         }
         this.dataService.setCategory('Searching');
         this.dispatchSearch(value, this.dataService.activeCategory);
-      });
+      });   
   }
 
   dispatchSearch(value: string, category: string) {
