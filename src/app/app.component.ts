@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {  RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { Video } from '../interface/interface';
 import { loadVideos, toggleAllBookmarksToFalse } from './store/store.actions';
 import { Store } from '@ngrx/store';
@@ -64,7 +64,9 @@ export class AppComponent {
     // fetch data
     this.store.dispatch(loadVideos());
     // reset bookmarkedVideos
-    this.store.dispatch(toggleAllBookmarksToFalse());
+    setTimeout(() => {
+      this.store.dispatch(toggleAllBookmarksToFalse());
+    }, 500);
 
     // assign observables
     this.trendingVideos$ = this.store.select(selectTrendingVideos);
