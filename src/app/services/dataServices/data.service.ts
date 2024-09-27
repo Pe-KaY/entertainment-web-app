@@ -51,7 +51,7 @@ export class DataService {
         this.resetIcons();
         this.all = true;
         break;
-      case 'Movies':
+      case 'Movie':
         this.moviesCategory = true;
         this.resetIcons();
         this.movies = true;
@@ -80,6 +80,6 @@ export class DataService {
     this.showWarning = true;
     setTimeout(() => {
       this.showWarning = false;
-    }, 3000);
+    }, 2000);
   }
 }

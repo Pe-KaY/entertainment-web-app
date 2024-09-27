@@ -91,8 +91,6 @@ export class AppComponent {
   }
 
   dispatchSearch(value: string, category: string) {
-    console.log(this.dataService.activeCategory);
-
     this.store.dispatch(
       setCategory({ category: value, actCategory: category })
     );
