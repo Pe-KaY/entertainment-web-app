@@ -3,11 +3,10 @@
     <img src="{{ video.thumbnail.regular.large }}" alt="movie Image" />
     <figcaption>
       <!-- bookmark icon -->
-      <div class="bookmark">
+      <div class="bookmark" (click)="bookmark(video.title)">
         <!-- bookmark svg -->
         <svg
           [class.active]="video.isBookmarked"
-          (click)="bookmark(video.title)"
           width="12"
           height="14"
           xmlns="http://www.w3.org/2000/svg"
